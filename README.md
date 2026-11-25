@@ -7,7 +7,7 @@
 > **GLITCHBYTE LAB // THE REAPER DECK IS ONLINE**  
 > An electric-rainbow, terminal-based public research suite with **16 switch positions**, keyless research engines, a local evidence vault, and one-word launching on Linux.
 
-[**☣ OPEN 20-RECIPE REAPER DECK**](showcase/index.html) · [**INSTALL DEADBYTE**](INSTALL.md) · [**HEXCODEX: 20 RECIPES**](recipes/DEADBYTE-HEXCODEX-GUEST-20-RECIPES.html) · [**PRIVACY**](PRIVACY.md)
+[**☣ COPY ALL 20 RECIPES RIGHT HERE**](#-20-real-hexcodex-recipes--copy-directly-from-github) · [**4-COMMAND INSTALL**](#-install-on-linux) · [**PRIVACY**](PRIVACY.md)
 
 ```text
 ██████╗ ███████╗ █████╗ ██████╗ ██████╗ ██╗   ██╗████████╗███████╗
@@ -58,23 +58,243 @@ Research sessions live on the user's own machine, outside this GitHub source rep
 
 ## 🛠 Install on Linux
 
-Requires Linux, Python 3, a POSIX shell and the `install` utility. From a checkout of this repository:
+**Copy all four commands** for a fresh Linux installation. The repository is currently private, so cloning requires GitHub account access.
 
-```sh
+```bash
+git clone https://github.com/Hellfire13666/DEADBYTE-DIGITAL-AFTERLIFE.git
+cd DEADBYTE-DIGITAL-AFTERLIFE
 sh install.sh
-```
-
-Then launch:
-
-```sh
 deadbyte
 ```
 
-If `deadbyte` is not found, add `$HOME/.local/bin` to your shell PATH. The installer is intended for **new** installs and deliberately refuses to replace an existing DEADBYTE installation. The package passed local syntax and disposable-home launch checks; it is **not yet certified on every Linux distribution or fully dependency-audited**. See [INSTALL.md](INSTALL.md).
+Requires Linux, Python 3, Git and the POSIX `install` utility. The installer **refuses to overwrite** an existing DEADBYTE installation or private research vault. The package passed local syntax and disposable-home launch checks, but is not yet certified across every Linux distribution. See [INSTALL.md](INSTALL.md) for troubleshooting.
 
-## 🧬 HEXCODEX / REAPER RECIPES
+## ☣ 20 REAL HEXCODEX RECIPES // COPY DIRECTLY FROM GITHUB
 
-The [HEXCODEX companion](recipes/DEADBYTE-HEXCODEX-GUEST-20-RECIPES.html) contains copy-ready terminal recipes and local maintenance controls. It is a separate offline HTML reference, not a hosted research engine.
+**No HTML viewer required.** GitHub displays a **Copy** button on each command block. Copy a recipe into a local Linux terminal after installing DEADBYTE. Recipes 01–14 launch the interactive menu; **select the numbered switch and enter the suggested query**. These are not automated background scans. Recipes 15–20 run local checks and vault utilities. Logging recipes write `DEADBYTE-RECIPE-XX.txt` in your **current terminal directory**; choose a private working directory when recording research.
+
+> **Current source compatibility note:** Recipe 08 uses `example.com` because Common Crawl expects a domain or URL, not a keyword. This corrects the older HEXCODEX sample without changing the original archived HTML recipe file.
+
+### 01 // INTERNET ARCHIVE
+
+SELECT 01 IN THE REAPER DECK · QUERY 1906 San Francisco earthquake
+
+```bash
+printf '%s\n' 'SELECT SWITCH 01  |  ENTER: 1906 San Francisco earthquake'
+deadbyte 2>&1 | tee -a './DEADBYTE-RECIPE-01.txt'
+```
+
+### 02 // OPEN LIBRARY
+
+SELECT 02 IN THE REAPER DECK · QUERY San Francisco earthquake
+
+```bash
+printf '%s\n' 'SELECT SWITCH 02  |  ENTER: San Francisco earthquake'
+deadbyte 2>&1 | tee -a './DEADBYTE-RECIPE-02.txt'
+```
+
+### 03 // LIBRARY OF CONGRESS
+
+SELECT 03 IN THE REAPER DECK · QUERY 1906 earthquake photographs
+
+```bash
+printf '%s\n' 'SELECT SWITCH 03  |  ENTER: 1906 earthquake photographs'
+deadbyte 2>&1 | tee -a './DEADBYTE-RECIPE-03.txt'
+```
+
+### 04 // WIKISOURCE
+
+SELECT 04 IN THE REAPER DECK · QUERY San Francisco earthquake
+
+```bash
+printf '%s\n' 'SELECT SWITCH 04  |  ENTER: San Francisco earthquake'
+deadbyte 2>&1 | tee -a './DEADBYTE-RECIPE-04.txt'
+```
+
+### 05 // GUTENDEX
+
+SELECT 05 IN THE REAPER DECK · QUERY earthquake
+
+```bash
+printf '%s\n' 'SELECT SWITCH 05  |  ENTER: earthquake'
+deadbyte 2>&1 | tee -a './DEADBYTE-RECIPE-05.txt'
+```
+
+### 06 // HISTORICAL NEWSPAPERS
+
+SELECT 06 IN THE REAPER DECK · QUERY 1906 San Francisco earthquake
+
+```bash
+printf '%s\n' 'SELECT SWITCH 06  |  ENTER: 1906 San Francisco earthquake'
+deadbyte 2>&1 | tee -a './DEADBYTE-RECIPE-06.txt'
+```
+
+### 07 // WAYBACK MACHINE
+
+SELECT 07 IN THE REAPER DECK · QUERY https://www.noaa.gov/
+
+```bash
+printf '%s\n' 'SELECT SWITCH 07  |  ENTER: https://www.noaa.gov/'
+deadbyte 2>&1 | tee -a './DEADBYTE-RECIPE-07.txt'
+```
+
+### 08 // COMMON CRAWL
+
+SELECT 08 IN THE REAPER DECK · ENTER A PUBLIC DOMAIN: example.com
+
+```bash
+printf '%s\n' 'SELECT SWITCH 08  |  ENTER: example.com'
+deadbyte 2>&1 | tee -a './DEADBYTE-RECIPE-08.txt'
+```
+
+### 09 // ARCHIVE-IT
+
+SELECT 09 IN THE REAPER DECK · QUERY national parks
+
+```bash
+printf '%s\n' 'SELECT SWITCH 09  |  ENTER: national parks'
+deadbyte 2>&1 | tee -a './DEADBYTE-RECIPE-09.txt'
+```
+
+### 10 // WIKIMEDIA COMMONS // HERITAGE IMAGES
+
+SELECT 10 IN THE REAPER DECK · QUERY 1906 San Francisco earthquake photographs
+
+```bash
+printf '%s\n' 'SELECT SWITCH 10  |  ENTER: 1906 San Francisco earthquake photographs'
+deadbyte 2>&1 | tee -a './DEADBYTE-RECIPE-10.txt'
+```
+
+### 11 // MULTI-SOURCE FUSION
+
+SELECT 11 IN THE REAPER DECK · QUERY astronomy
+
+```bash
+printf '%s\n' 'SELECT SWITCH 11  |  ENTER: astronomy'
+deadbyte 2>&1 | tee -a './DEADBYTE-RECIPE-11.txt'
+```
+
+### 12 // DEAD VAULT INDEX
+
+SELECT 12 IN THE REAPER DECK · QUERY /
+
+```bash
+printf '%s\n' 'SELECT SWITCH 12  |  ENTER: /'
+deadbyte 2>&1 | tee -a './DEADBYTE-RECIPE-12.txt'
+```
+
+### 13 // PROVIDER FIELD NOTES
+
+SELECT 13 IN THE REAPER DECK
+
+```bash
+printf '%s\n' 'SELECT SWITCH 13'
+deadbyte 2>&1 | tee -a './DEADBYTE-RECIPE-13.txt'
+```
+
+### 14 // DEAD ARCHIVES / NOAA
+
+SELECT 14 IN THE REAPER DECK · QUERY 1980 storms of america
+
+```bash
+printf '%s\n' 'SELECT SWITCH 14  |  ENTER: 1980 storms of america'
+deadbyte 2>&1 | tee -a './DEADBYTE-RECIPE-14.txt'
+```
+
+### 15 // LAUNCHER CHECK
+
+RUN DIRECTLY IN RAINBOW · No changes to the DEADBYTE code.
+
+```bash
+command -v deadbyte && command -v deadbyte | tee -a './DEADBYTE-RECIPE-15.txt'
+```
+
+### 16 // VAULT SESSION COUNT
+
+RUN DIRECTLY IN RAINBOW · No changes to the DEADBYTE code.
+
+```bash
+find "$HOME/.local/share/deadbyte" -type f \( -iname '*.json' -o -iname '*.txt' \) -printf '%f\n' | awk 'END {print "VAULT FILES //", NR}' | tee -a './DEADBYTE-RECIPE-16.txt'
+```
+
+### 17 // LATEST SAVED RESEARCH
+
+RUN DIRECTLY IN RAINBOW · No changes to the DEADBYTE code.
+
+```bash
+find "$HOME/.local/share/deadbyte" -type f \( -iname '*.json' -o -iname '*.txt' \) -printf '%T@ %TY-%Tm-%Td %TH:%TM %p\n' | sort -nr | head -n 10 | tee -a './DEADBYTE-RECIPE-17.txt'
+```
+
+### 18 // SEARCH SAVED EVIDENCE
+
+RUN DIRECTLY IN RAINBOW · No changes to the DEADBYTE code.
+
+```bash
+printf 'Enter a research keyword: '; IFS= read -r term; if [ -n "$term" ]; then grep -RinF --include='*.json' --include='*.txt' -- "$term" "$HOME/.local/share/deadbyte" | tee -a './DEADBYTE-RECIPE-18.txt' || true; else printf 'No keyword entered.\n'; fi
+```
+
+### 19 // PROVIDER FIELD GUIDE
+
+RUN DIRECTLY IN RAINBOW · No changes to the DEADBYTE code.
+
+```bash
+guide="$HOME/.local/share/deadbyte/PROVIDER-FIELD-GUIDE.txt"; if [ -f "$guide" ]; then cat "$guide" | tee -a './DEADBYTE-RECIPE-19.txt'; else printf 'Guide not installed at expected location. Try DEADBYTE switch 13.\n'; fi
+```
+
+### 20 // VAULT SAFETY BACKUP
+
+RUN DIRECTLY IN RAINBOW · No changes to the DEADBYTE code.
+
+```bash
+mkdir -p "$HOME/Documents/DEADBYTE-VAULT" && cp -an "$HOME/.local/share/deadbyte/." "$HOME/Documents/DEADBYTE-VAULT/" && printf 'VAULT BACKUP // copied missing files only\n' | tee -a './DEADBYTE-RECIPE-20.txt'
+```
+
+<details>
+<summary><strong>☠ 7 additional maintenance commands (expand to copy)</strong></summary>
+
+#### MAINT 01 // SYSTEM CHECK
+
+```bash
+command -v deadbyte || printf 'DEADBYTE launcher missing from PATH\n'; test -d "$HOME/.local/share/deadbyte" && printf 'DEADBYTE MODULE DIRECTORY // PRESENT\n' || printf 'DEADBYTE MODULE DIRECTORY // NOT FOUND\n'
+```
+
+#### MAINT 02 // ARCHIVE HEALTH
+
+```bash
+for host in archive.org www.loc.gov www.ncei.noaa.gov; do printf '%s // ' "$host"; getent ahostsv4 "$host" | head -n 1 || true; done
+```
+
+#### MAINT 03 // VAULT INSPECT
+
+```bash
+vault="$HOME/.local/share/deadbyte"; if [ -d "$vault" ]; then xdg-open "$vault"; else printf 'VAULT DIRECTORY NOT FOUND // %s\n' "$vault"; fi
+```
+
+#### MAINT 04 // VAULT BACKUP
+
+```bash
+vault="$HOME/.local/share/deadbyte"; backup="$HOME/Documents/DEADBYTE-VAULT"; if [ -d "$vault" ]; then mkdir -p "$backup" && cp -an "$vault/." "$backup/" && printf 'BACKUP // COPIED MISSING FILES ONLY\n'; else printf 'VAULT NOT FOUND\n'; fi
+```
+
+#### MAINT 05 // REAPER RECOVERY
+
+```bash
+printf 'DEADBYTE RECOVERY CANDIDATES\n'; find "$HOME/.local/share/deadbyte" "$HOME/Documents/DEADBYTE-VAULT" -maxdepth 3 -type f \( -iname '*backup*' -o -iname '*.zip' -o -iname '*.bak' -o -iname '*.orig' \) -print 2>/dev/null | head -n 80
+```
+
+#### MAINT 06 // VERSION CHECK
+
+```bash
+dir="$HOME/.local/share/deadbyte"; if [ -d "$dir" ]; then find "$dir" -maxdepth 1 -type f -name '*.py' -printf '%f\n' | sort; grep -RIl -m 1 -E 'DEADBYTE_.*V3_|RESEARCH REFINERY v3\.' "$dir" --include='*.py' 2>/dev/null | head -n 20 || true; else printf 'MODULE DIRECTORY NOT FOUND\n'; fi
+```
+
+#### MAINT 07 // HELP & RECIPES
+
+```bash
+guide="$HOME/.local/share/deadbyte/PROVIDER-FIELD-GUIDE.txt"; if [ -f "$guide" ]; then cat "$guide"; else printf 'NO FIELD GUIDE FOUND // Open deadbyte and choose Switch 13\n'; deadbyte; fi
+```
+
+</details>
 
 ## 🔐 Privacy, ownership and release status
 
@@ -83,7 +303,7 @@ The [HEXCODEX companion](recipes/DEADBYTE-HEXCODEX-GUEST-20-RECIPES.html) contai
 - **Third-party media and content:** Subject to their own licenses, attribution and usage rules.
 - **Private data:** No saved DEAD VAULT sessions, personal paths, credentials or research backups are intentionally included.
 - **Release status:** Source snapshot and installer available in this private repository; no public release certified yet.
-- **Recipe viewer:** [HEXCODEX Reaper Deck](showcase/index.html) contains the actual 20 copy-ready recipe cards and 7 separate maintenance controls. It copies commands for use in your local terminal; it does not execute research in the browser. GitHub's code viewer shows HTML source; a one-click rendered site requires separate hosting.
+- **Recipes:** All 20 copy-ready commands and seven additional maintenance commands are embedded directly in this README. No HTML download is required to copy them on GitHub.
 
 Review [PRIVACY.md](PRIVACY.md), third-party artwork rights, and installation dependencies before any public distribution.
 

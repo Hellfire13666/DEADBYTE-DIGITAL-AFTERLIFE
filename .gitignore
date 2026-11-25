@@ -1,0 +1,18 @@
+# Private research and local configuration
+.env
+.env.*
+__pycache__/
+*.pyc
+*.bak
+*.backup
+*.sqlite
+*.sqlite3
+*.db
+*.log
+*.json
+*before*
+DEAD VAULT/
+DEADBYTE-VAULT/
+vault/
+sessions/
+.venv/

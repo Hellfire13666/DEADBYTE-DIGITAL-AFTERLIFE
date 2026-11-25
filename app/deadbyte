@@ -1,0 +1,456 @@
+#!/usr/bin/env python3
+import json
+import urllib.request
+import urllib.parse
+import pathlib
+import datetime
+import sys
+import html
+import re
+
+ROOT = pathlib.Path.home() / ".local/share/deadbyte"
+ROOT.mkdir(parents=True, exist_ok=True, mode=0o700)
+
+COLORS = [196, 208, 226, 118, 51, 39, 129, 201]
+
+def paint(s, n=3):
+    return f"\033[38;5;{COLORS[n%8]}m{s}\033[0m" if sys.stdout.isatty() else s
+
+def clean(s):
+    return "".join(c for c in html.unescape(re.sub("<[^>]*>", "", str(s))) if c.isprintable())
+
+def get(url, params):
+    url += "?" + urllib.parse.urlencode(params, doseq=True)
+    req = urllib.request.Request(url, headers={
+        "User-Agent": "DEADBYTE/0.1 Public Archive Reader",
+        "Accept": "application/json"
+    })
+    with urllib.request.urlopen(req, timeout=25) as r:
+        return json.load(r)
+
+def record(title, url, desc="", date=""):
+    return dict(title=clean(title), url=clean(url),
+                description=clean(desc), date=clean(date))
+
+NAMES = [
+    "Internet Archive",
+    "Open Library",
+    "Library of Congress",
+    "Wikisource",
+    "Project Gutenberg / Gutendex",
+    "Historical Newspapers / LOC"
+]
+
+PORTALS = [
+    ("Wayback Machine", "https://web.archive.org/"),
+    ("Common Crawl", "https://index.commoncrawl.org/"),
+    ("Archive-It", "https://archive-it.org/"),
+    ("Europeana", "https://www.europeana.eu/")
+]
+
+def search(i, q):
+    # DEADBYTE_LOC_KEYLESS_V3_7
+    # DEADBYTE_NEWSPAPER_FALLBACK_V3_8
+    # DEADBYTE_ARCHIVEIT_OPENSEARCH_V3_18
+    if i == 9:
+        import importlib.util as _db318_util
+        from pathlib import Path as _db318_Path
+        _db318_file = _db318_Path.home() / '.local/share/deadbyte/deadbyte_archiveit_opensearch_v318.py'
+        _db318_spec = _db318_util.spec_from_file_location('deadbyte_archiveit_opensearch_v318', _db318_file)
+        _db318_module = _db318_util.module_from_spec(_db318_spec)
+        _db318_spec.loader.exec_module(_db318_module)
+        return _db318_module.search(q)
+    if i == 6:
+        import importlib.util as _db38_util
+        from pathlib import Path as _db38_Path
+        _db38_path = _db38_Path.home() / '.local/share/deadbyte/deadbyte_newspaper_fallback_v38.py'
+        _db38_spec = _db38_util.spec_from_file_location('deadbyte_newspaper_fallback_v38', _db38_path)
+        _db38_mod = _db38_util.module_from_spec(_db38_spec)
+        _db38_spec.loader.exec_module(_db38_mod)
+        return _db38_mod.search(q)
+    if i in (3, 6):
+        import importlib.util as _db_util
+        from pathlib import Path as _db_Path
+        _db_p = _db_Path.home()/'.local/share/deadbyte/deadbyte_loc_keyless_v37.py'
+        _db_spec = _db_util.spec_from_file_location('deadbyte_loc_keyless_v37', _db_p)
+        _db_mod = _db_util.module_from_spec(_db_spec)
+        _db_spec.loader.exec_module(_db_mod)
+        return _db_mod.search(i, q)
+    if i == 1:
+        d = get("https://archive.org/advancedsearch.php", {
+            "q": q, "output": "json", "rows": 50,
+            "fl[]": ["identifier", "title", "description", "date"]
+        })
+        return [record(x.get("title", x["identifier"]),
+            "https://archive.org/details/" + x["identifier"],
+            x.get("description", ""), x.get("date", ""))
+            for x in d["response"]["docs"]]
+
+    if i == 2:
+        d = get("https://openlibrary.org/search.json",
+                {"q": q, "limit": 50})
+        return [record(x.get("title", ""),
+            "https://openlibrary.org" + x["key"],
+            ", ".join(x.get("author_name", [])),
+            x.get("first_publish_year", ""))
+            for x in d["docs"]]
+
+    if i in (3, 6):
+        endpoint = "https://www.loc.gov/search/" if i == 3 else "https://www.loc.gov/newspapers/"
+        d = get(endpoint, {"q": q, "fo": "json", "c": 50})
+        return [record(x.get("title", ""), x.get("url", ""),
+            x.get("description", ""), x.get("date", ""))
+            for x in d.get("results", [])]
+
+    if i == 4:
+        d = get("https://en.wikisource.org/w/api.php", {
+            "action": "query", "list": "search",
+            "srsearch": q, "srlimit": 50, "format": "json"
+        })
+        return [record(x["title"],
+            "https://en.wikisource.org/?curid=" + str(x["pageid"]),
+            x.get("snippet", ""), x.get("timestamp", ""))
+            for x in d["query"]["search"]]
+
+    if i == 5:
+        d = get("https://gutendex.com/books/", {"search": q})
+        return [record(x["title"],
+            "https://www.gutenberg.org/ebooks/" + str(x["id"]),
+            ", ".join(a["name"] for a in x["authors"]))
+            for x in d["results"]]
+
+def run(i, q):
+    print(paint("\nCONNECTING // " + NAMES[i-1], 4))
+    try:
+        rows = search(i, q)
+    except Exception as e:
+        print(paint("PROVIDER ERROR // " + clean(e), 0))
+        return
+    for n, x in enumerate(rows, 1):
+        print(paint(f"\n[{n:03}] " + x["title"], n))
+        print(x["url"])
+        print(x["date"])
+        print(x["description"][:600])
+    stamp = datetime.datetime.now(datetime.timezone.utc)
+    p = ROOT / (stamp.strftime("%Y%m%dT%H%M%S%fZ") + ".json")
+    p.write_text(json.dumps({
+        "source": NAMES[i-1],
+        "query": q,
+        "records": rows
+    }, ensure_ascii=False, indent=2))
+    print(paint(f"\n{len(rows)} RECORDS // FIRST PROVIDER PAGE", 3))
+    print(paint("DEAD VAULT // SAVED " + p.name, 6))
+
+
+# DEADBYTE_REAPER_DECK_V1
+
+def banner():
+    import shutil, subprocess, sys
+    from pathlib import Path
+
+    art = Path.home() / ".local/share/deadbyte/assets/deadbyte-reaper-header.jpg"
+
+    columns = shutil.get_terminal_size((120, 35)).columns
+    width = min(120, max(20, columns - 2))
+
+    if sys.stdout.isatty() and art.is_file() and shutil.which("chafa"):
+        subprocess.run(
+            ["chafa", "--size", f"{width}x22", str(art)],
+            check=False
+        )
+    else:
+        print("☣ DEADBYTE // DIGITAL AFTERLIFE")
+
+def _db2_col(s, color):
+    import sys
+    return f'\x1b[38;5;{color}m{s}\x1b[0m' if sys.stdout.isatty() else s
+
+# DEADBYTE_REAPER_SWITCHES_V2
+
+# DEADBYTE_REAPER_SLOTS_15_16_V1
+def _db2_switchboard():
+    import shutil
+    import sys
+    import unicodedata
+
+    columns = shutil.get_terminal_size((120, 32)).columns
+    width = min(max(columns - 1, 42), 132)
+    left = [
+        ('01', '☣', 'LIVE', 'Internet Archive'),
+        ('02', '◈', 'LIVE', 'Open Library'),
+        ('03', '▣', 'LIVE', 'Library of Congress'),
+        ('04', '✎', 'LIVE', 'Wikisource'),
+        ('05', '♜', 'LIVE', 'Project Gutenberg / Gutendex'),
+        ('06', '▤', 'LIVE', 'Historical Newspapers / LOC'),
+        ('15', '☠', 'FUTURE', 'SHADOW SLOT'),
+        ('16', '◆', 'FUTURE', 'RESERVED BAY'),
+    ]
+    right = [
+        ('07', '◷', 'LIVE', 'Wayback Machine'),
+        ('08', '▥', 'LIVE', 'Common Crawl'),
+        ('09', '⌘', 'LIVE', 'Archive-It'),
+        ('10', '◇', 'PORTAL', 'Europeana (API key)'),
+        ('11', '✦', 'FUSION', 'Six research engines'),
+        ('12', '☠', 'VAULT', 'Saved sessions'),
+        ('13', '⚙', 'HELP', 'HEXCODEX recipes'),
+        ('14', '☣', 'FUSION', 'DEAD ARCHIVES // Sentence research'),
+    ]
+
+    def cells(s):
+        return sum(0 if unicodedata.combining(c) else 2 if unicodedata.east_asian_width(c) in ('F', 'W') else 1 for c in s)
+
+    def fit(s, n):
+        if n <= 0:
+            return ''
+        if cells(s) <= n:
+            return s + ' ' * (n - cells(s))
+        result = ''
+        for c in s:
+            if cells(result + c) > n - 1:
+                break
+            result += c
+        return result + '…' + ' ' * max(0, n - cells(result) - 1)
+
+    def color(s, code, bold=False):
+        if not sys.stdout.isatty():
+            return s
+        return f'\x1b[{"1;" if bold else ""}38;5;{code}m{s}\x1b[0m'
+
+    def render(row, n):
+        number, symbol, status, name = row
+        prefix = f' [{number}] {symbol} '
+        state = f'{status:<6}'
+        rest = fit(name, max(1, n - cells(prefix) - cells(state) - 3))
+        tone = {'LIVE': 118, 'PORTAL': 141, 'FUSION': 201, 'VAULT': 213, 'HELP': 177, 'FUTURE': 244}[status]
+        return color(prefix, 196, True) + color(state, tone, True) + color(' │ ', 90) + color(rest, 255)
+
+    ruler = '━' * width
+    print()
+    print(color(ruler, 90))
+    print(color(' ☠ DEADBYTE', 196, True) + color(' // REAPER COMMAND DECK', 213, True))
+    print(color(ruler, 90))
+    if width >= 108:
+        half = (width - 3) // 2
+        for a, b in zip(left, right):
+            print(render(a, half) + color(' ┃ ', 90) + render(b, width - half - 3))
+    else:
+        for a in left:
+            print(render(a, width))
+        print(color('━' * width, 90))
+        for b in right:
+            print(render(b, width))
+    print(color(ruler, 90))
+    print(color(' [00] ☠ EXIT', 196, True) + color(' // TERMINATE SESSION', 252))
+    print(color(' 01–06 LIVE  •  07–10 ARCHIVES  •  11 FUSION  •  12 VAULT  •  13 HELP  •  14 DEAD ARCHIVES  •  15–16 FUTURE', 141))
+    print()
+
+
+
+def _deadbyte_sentence_hunter():
+    import importlib.util
+    from pathlib import Path
+    spec=importlib.util.spec_from_file_location(
+        "deadbyte_dead_archives_v3",
+        Path.home()/".local/share/deadbyte/dead_archives_v3.py")
+    addon=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(addon)
+    addon.run(search,Path.home()/".local/share/deadbyte/live_archive_v2.py")
+
+# DEADBYTE_LIVE_ARCHIVES_0710_AND_SENTENCE_14_V2
+def _deadbyte_archive_run(number):
+    import importlib.util
+    from pathlib import Path
+    location = Path.home() / ".local/share/deadbyte/live_archive_v2.py"
+    spec = importlib.util.spec_from_file_location("deadbyte_live_archive_v2", location)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    module.run_live_archive(number)
+
+
+def _db_provider_field_notes():
+    print('\n☣ DEADBYTE // PROVIDER FIELD NOTES\n[01] Internet Archive          Mixed books, media and documents\n[02] Open Library              Books, authors and editions\n[03] Library of Congress       Historical cultural collections\n[04] Wikisource                Public-domain source texts\n[05] Gutenberg / Gutendex      Digitized ebooks\n[06] Historical Newspapers     Historic US press / LOC\n[07] Wayback Machine           Historic webpage URL captures\n[08] Common Crawl             Indexed crawl URLs\n[09] Archive-It                Curated institutional web archives\n[10] Wikimedia Commons         Keyless historical media research\n[14] DEAD ARCHIVES             Full-sentence, source-aware research\nNWS REPORTS // Preliminary weather reports, not official event totals\nNOTE // Capture/edit/upload dates may differ from actual event dates.\nNOTE // Timeout does not mean zero matching records.\nFULL GUIDE // $HOME/.local/share/deadbyte/PROVIDER-FIELD-GUIDE.txt\n')
+
+
+# DEADBYTE_VAULT_INDEX_V3_6
+def _deadbyte_vault_index():
+    """Read-only browser of prior DEADBYTE JSON research sessions."""
+    import datetime as _dt
+    import json as _json
+    import re as _re
+    from pathlib import Path as _Path
+    from textwrap import shorten as _shorten
+
+    root = _Path.home() / '.local/share/deadbyte'
+    files = sorted((p for p in root.glob('*.json') if p.is_file() and not p.is_symlink()), reverse=True)
+    if not files:
+        print('☠ DEAD VAULT // No saved JSON sessions yet.')
+        return
+
+    def tidy(v, width=110):
+        if isinstance(v, list):
+            v = ', '.join(str(x) for x in v[:5])
+        elif isinstance(v, dict):
+            v = ', '.join(str(x) for x in list(v.values())[:4])
+        s = _re.sub(r'[\x00-\x1f\x7f-\x9f\x1b]', ' ', str(v or ''))
+        return _shorten(' '.join(s.split()), width=width, placeholder='…')
+
+    def session_info(p):
+        meta={'path':p, 'label':'Untitled research', 'source':'Unknown', 'count':None,
+              'date':'Unknown date', 'error':'', 'data':None}
+        try:
+            if p.stat().st_size > 80*1024*1024:
+                raise ValueError('File too large for interactive reader (80 MB max)')
+            d=_json.loads(p.read_text(encoding='utf-8'))
+            if not isinstance(d,dict):
+                raise ValueError('JSON session is not an object')
+            meta['data']=d
+            meta['source']=tidy(d.get('source') or d.get('engine') or 'Research session',42)
+            question=d.get('question') or d.get('query') or d.get('keyword') or ''
+            if not question:
+                # An older session may have the subject only inside its first record.
+                rows=d.get('records') or []
+                if isinstance(rows,list) and rows and isinstance(rows[0],dict):
+                    question=rows[0].get('title','')
+            meta['label']=tidy(question or meta['source'],85)
+            records=d.get('records')
+            if isinstance(records,list):
+                meta['count']=len(records)
+            else:
+                for k in ('results','items'):
+                    if isinstance(d.get(k),list):
+                        meta['count']=len(d[k]); break
+            val=d.get('searched_at_utc') or d.get('created_at') or d.get('timestamp') or ''
+            if val:
+                meta['date']=tidy(val,32)
+            else:
+                m=_re.match(r'(\d{4})(\d\d)(\d\d)T(\d\d)(\d\d)', p.name)
+                if m:
+                    meta['date']=f'{m[1]}-{m[2]}-{m[3]} {m[4]}:{m[5]} UTC'
+                else:
+                    meta['date']=_dt.datetime.fromtimestamp(p.stat().st_mtime,_dt.timezone.utc).strftime('%Y-%m-%d %H:%M UTC (file time)')
+        except (OSError, ValueError, UnicodeError) as exc:
+            meta['error']=tidy(f'{type(exc).__name__}: {exc}',90)
+        return meta
+
+    items=[session_info(p) for p in files]
+    filtered=items[:]
+    page=0
+    per_page=10
+
+    def listing():
+        nonlocal page
+        if not filtered:
+            print('No sessions match your filter. Type / to show all.'); return
+        page=min(page,(len(filtered)-1)//per_page)
+        print('\n☠ DEAD VAULT // RESEARCH INDEX')
+        print(f'SAVED SESSIONS // {len(items)}  |  SHOWING // {len(filtered)}  |  PAGE // {page+1}/{(len(filtered)-1)//per_page+1}')
+        for i in range(page*per_page,min((page+1)*per_page,len(filtered))):
+            x=filtered[i]
+            total=('? records' if x['count'] is None else f"{x['count']} records")
+            print(f"[{i+1:03}] {x['label']}")
+            print(f"      {x['date']}  |  {x['source']}  |  {total}")
+            if x['error']: print('      READ ERROR // '+x['error'])
+        print('\n[number] OPEN  |  [N] NEXT  |  [P] PREVIOUS  |  [/] FILTER  |  [Q] EXIT')
+
+    def open_item(x):
+        print('\n'+'━'*65)
+        print('☣ SESSION // '+x['label'])
+        print('DATE // '+x['date'])
+        print('SOURCE // '+x['source'])
+        print('FILE // '+x['path'].name)
+        if x['error']:
+            print('READ ERROR // '+x['error']); return
+        d=x['data']
+        rows=d.get('records')
+        if not isinstance(rows,list): rows=d.get('results',d.get('items',[]))
+        if not isinstance(rows,list): rows=[]
+        print('RECORDS // '+str(len(rows)))
+        errs=d.get('provider_errors') or d.get('errors')
+        if errs: print('PROVIDER NOTES // '+tidy(errs,220))
+        print('────────────────────────────────────────────────────────────')
+        if not rows:
+            print('No record list in this saved session. Metadata remains available.'); return
+        cursor=0
+        while True:
+            segment=rows[cursor:cursor+5]
+            for i,r in enumerate(segment,cursor+1):
+                if not isinstance(r,dict):
+                    print(f'[{i:03}] '+tidy(r,140)); continue
+                name=r.get('title') or r.get('name') or r.get('event_type') or 'Untitled record'
+                print(f'[{i:03}] '+tidy(name,140))
+                if r.get('source'): print('  SOURCE // '+tidy(r['source'],120))
+                if r.get('date') or r.get('event_time'): print('  DATE // '+tidy(r.get('date') or r.get('event_time'),100))
+                if r.get('url') or r.get('link'): print('  LINK // '+tidy(r.get('url') or r.get('link'),240))
+                if r.get('description') or r.get('details'):
+                    print('  NOTES // '+tidy(r.get('description') or r.get('details'),420))
+            print(f'RECORDS // {cursor+1}-{min(cursor+5,len(rows))} of {len(rows)}')
+            try: cmd=input('[N] NEXT  [P] PREVIOUS  [number] FULL DETAIL  [B] BACK > ').strip().lower()
+            except (EOFError,KeyboardInterrupt): print(); return
+            if cmd in ('b','q','00',''): return
+            if cmd=='n': cursor=min(cursor+5,((len(rows)-1)//5)*5)
+            elif cmd=='p': cursor=max(0,cursor-5)
+            elif cmd.isdigit() and 1<=int(cmd)<=len(rows):
+                r=rows[int(cmd)-1]
+                print('\n☣ FULL SAVED RECORD // '+str(cmd))
+                if isinstance(r,dict):
+                    for k,v in r.items():
+                        if k in ('grouped_reports','raw_records','original_records') and isinstance(v,list):
+                            print(tidy(k,50).upper()+' // '+str(len(v))+' retained observations')
+                        else:
+                            print(tidy(k,50).upper()+' // '+tidy(v,10000))
+                else: print(tidy(r,10000))
+            else: print('Select N, P, B, or a saved record number.')
+
+    listing()
+    while True:
+        try: cmd=input('DEAD VAULT > ').strip()
+        except (EOFError,KeyboardInterrupt): print(); break
+        if cmd.lower() in ('q','b','00','exit'): break
+        if cmd.lower()=='n': page=min(page+1,(len(filtered)-1)//per_page if filtered else 0)
+        elif cmd.lower()=='p': page=max(0,page-1)
+        elif cmd=='/':
+            try: term=input('FILTER // search question, source or date (blank = all) > ').strip().casefold()
+            except (EOFError,KeyboardInterrupt): break
+            filtered=[x for x in items if term in (x['label']+' '+x['source']+' '+x['date']+' '+x['path'].name).casefold()]
+            page=0
+        elif cmd.isdigit() and 1<=int(cmd)<=len(filtered): open_item(filtered[int(cmd)-1])
+        else: print('Use a session number, N, P, /, or Q.')
+        listing()
+
+def main():
+    while True:
+        banner()
+        _db2_switchboard()
+        try:
+            c = input(paint("\nDEADBYTE > ", 3)).strip()
+        except (EOFError, KeyboardInterrupt):
+            break
+
+        if c == "00":
+            break
+        elif c == "12":
+            _deadbyte_vault_index()
+        elif c == "13":
+            print("01-06: Live keyword searches")
+            print("07-10: Live public archive research")
+            print("11: Search all six keyword engines")
+            print("12: List private local saved sessions")
+            print("00: Exit")
+            # DEADBYTE_PROVIDER_FIELD_GUIDE_HELP_V1
+            _db_provider_field_notes()
+        elif c in ("15", "16"):
+            print("☠ SHADOW SLOT // Future research bay, not active yet" if c == "15" else "◆ RESERVED BAY // Future research bay, not active yet")
+        elif c == "14":
+            _deadbyte_sentence_hunter()
+        elif c.isdigit() and 7 <= int(c) <= 10:
+            _deadbyte_archive_run(int(c))
+        elif c.isdigit() and (1 <= int(c) <= 6 or int(c) == 11):
+            q = input("PUBLIC RESEARCH KEYWORD > ").strip()
+            if q:
+                for i in (range(1,7) if int(c)==11 else [int(c)]):
+                    run(i, q)
+
+if __name__ == "__main__":
+    main()
+
+# DEADBYTE_DEAD_ARCHIVES_V3

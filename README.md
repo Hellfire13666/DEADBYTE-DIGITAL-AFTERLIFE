@@ -7,7 +7,7 @@
 > **GLITCHBYTE LAB // THE REAPER DECK IS ONLINE**  
 > An electric-rainbow, terminal-based public research suite with **16 switch positions**, keyless research engines, a local evidence vault, and one-word launching on Linux.
 
-[**☣ OPEN THE REAPER DECK SHOWCASE**](showcase/index.html) · [**INSTALL DEADBYTE**](INSTALL.md) · [**HEXCODEX: 20 RECIPES**](recipes/DEADBYTE-HEXCODEX-GUEST-20-RECIPES.html) · [**PRIVACY**](PRIVACY.md)
+[**☣ OPEN 20-RECIPE REAPER DECK**](showcase/index.html) · [**INSTALL DEADBYTE**](INSTALL.md) · [**HEXCODEX: 20 RECIPES**](recipes/DEADBYTE-HEXCODEX-GUEST-20-RECIPES.html) · [**PRIVACY**](PRIVACY.md)
 
 ```text
 ██████╗ ███████╗ █████╗ ██████╗ ██████╗ ██╗   ██╗████████╗███████╗
@@ -83,7 +83,7 @@ The [HEXCODEX companion](recipes/DEADBYTE-HEXCODEX-GUEST-20-RECIPES.html) contai
 - **Third-party media and content:** Subject to their own licenses, attribution and usage rules.
 - **Private data:** No saved DEAD VAULT sessions, personal paths, credentials or research backups are intentionally included.
 - **Release status:** Source snapshot and installer available in this private repository; no public release certified yet.
-- **Viewer:** [Standalone showcase HTML](showcase/index.html) is a visual preview, **not** a live web client. GitHub's code viewer shows its source; a hosted preview would require separate deployment.
+- **Recipe viewer:** [HEXCODEX Reaper Deck](showcase/index.html) contains the actual 20 copy-ready recipe cards and 7 separate maintenance controls. It copies commands for use in your local terminal; it does not execute research in the browser. GitHub's code viewer shows HTML source; a one-click rendered site requires separate hosting.
 
 Review [PRIVACY.md](PRIVACY.md), third-party artwork rights, and installation dependencies before any public distribution.
 

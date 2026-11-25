@@ -1,58 +1,209 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DEADBYTE // DIGITAL AFTERLIFE | Reaper Deck Preview</title>
-<meta name="description" content="DEADBYTE terminal archive research suite: historical records, storm intelligence, vintage newspapers, and private vault.">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080713">
+<meta name="description" content="DEADBYTE DIGITAL AFTERLIFE. Explore the 16-position Reaper Deck, historical archives, NOAA storm intelligence and private research vault. Browser showcase for the Linux research terminal.">
+<title>DEADBYTE // DIGITAL AFTERLIFE | THE REAPER DECK</title>
 <style>
-:root{color-scheme:dark;--lime:#9bff38;--violet:#ad55ff;--cyan:#35dbff;--pink:#ff4cbd;--dark:#080713}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:16px/1.55 system-ui,Segoe UI,sans-serif;color:#ebf4ff;background:radial-gradient(ellipse at 18% 5%,#4d1780a0,transparent 42%),radial-gradient(ellipse at 80% 13%,#005a4a60,transparent 35%),#080713}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background:repeating-linear-gradient(0deg,transparent 0 3px,#9bff38 4px)}
-main{max-width:1100px;margin:auto;padding:32px 20px 80px}header{position:relative;overflow:hidden;border:1px solid #8cff4c91;background:linear-gradient(130deg,#100822e9,#060e12e9);box-shadow:0 0 35px #922cff38, inset 0 0 40px #4fff5b0b;border-radius:22px;padding:52px 38px}
-.small{font:700 12px ui-monospace,monospace;letter-spacing:.2em;color:var(--cyan)}h1{font-size:clamp(3rem,8vw,7rem);line-height:.88;margin:22px 0 12px;font-weight:1000;letter-spacing:-.06em;color:var(--lime);text-shadow:4px 4px 0 #592495,0 0 28px #70ff3f60}h1 span{display:block;font-size:clamp(1.3rem,3.5vw,2.8rem);letter-spacing:.12em;color:var(--pink);margin-top:16px;text-shadow:0 0 20px #ae2dffb5}
-.lead{max-width:710px;color:#c4d7ee;font-size:1.08rem;margin-top:22px}.ghost{position:absolute;right:35px;top:45px;font-size:clamp(95px,16vw,190px);filter:drop-shadow(0 0 20px #7aff3f87);opacity:.28;transform:rotate(-10deg)}
-.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}a.btn,button{border:1px solid #9bff38;border-radius:9px;background:#163313;color:#d6ffba;text-decoration:none;padding:12px 18px;font-weight:800;cursor:pointer}a.btn.secondary{border-color:var(--violet);color:#e8c8ff;background:#291244}
-h2{margin:52px 0 12px;letter-spacing:.06em;color:var(--cyan);font-size:1.35rem;text-transform:uppercase}.minor{color:#a9b9ce;margin:0 0 22px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:13px}
-.panel{background:linear-gradient(135deg,#161227,#0b1620);border:1px solid #7043a8;border-radius:12px;padding:18px;min-height:110px;box-shadow:0 0 17px #541ab51e}
-.panel b{font:800 12px ui-monospace,monospace;color:var(--lime)}.panel h3{margin:9px 0 4px;font-size:1.1rem}.panel p{margin:0;color:#aebbd2;font-size:.91rem}
-.terminal{border:1px solid #6bff43;border-radius:14px;overflow:hidden;background:#030a08;box-shadow:0 0 22px #58ff2924}.terminal .bar{padding:11px 16px;background:#122015;color:#b1ff74;font:700 12px ui-monospace,monospace;letter-spacing:.08em}.terminal pre{white-space:pre-wrap;word-break:break-word;font:14px/1.65 ui-monospace,monospace;margin:0;padding:20px;color:#9bfcc8}.status{color:#c8a2ff}.note{border-left:3px solid var(--pink);padding:10px 18px;background:#200f22;color:#e5d4e4;border-radius:5px}
-footer{margin-top:64px;border-top:1px solid #5c3784;padding-top:20px;color:#91a6b6;font:13px ui-monospace,monospace}
-@media(max-width:650px){header{padding:36px 23px}.ghost{right:-8px;top:25px;opacity:.15}}
-</style></head><body><main>
-<header><div class="small">☣ GLITCHBYTE LAB // HISTORICAL INTELLIGENCE TERMINAL</div><div class="ghost" aria-hidden="true">☠</div>
-<h1>DEADBYTE<span>DIGITAL AFTERLIFE</span></h1>
-<p class="lead">DIG UP THE PAST. RESURRECT THE RECORD.<br>Historical archives, geo-storm intelligence, vintage newspapers, public records, and local evidence preservation in one electric Reaper Deck.</p>
-<div class="actions"><a class="btn" href="../README.md">Project README</a><a class="btn secondary" href="../INSTALL.md">Install guide</a><a class="btn secondary" href="../recipes/DEADBYTE-HEXCODEX-GUEST-20-RECIPES.html">20 HEXCODEX recipes</a></div>
+:root{color-scheme:dark;--bg:#05070b;--panel:#101321;--lime:#b7ff49;--blue:#4cc7ff;--purple:#ae70ff;--pink:#ff54af;--ink:#ebf7f7;--muted:#a9bbce;--line:#547355}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 8% 4%,#45206088,transparent 37%),radial-gradient(ellipse at 90% 25%,#004b4188,transparent 38%),var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.10;background:repeating-linear-gradient(0deg,transparent 0 3px,#c2ff65 4px);z-index:10}
+a{color:var(--blue)}
+.shell{max-width:1200px;margin:auto;padding:18px 20px 70px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;font:700 12px/1.5 ui-monospace,monospace;color:var(--lime);letter-spacing:.12em;padding:10px 0 20px}
+.top a{color:#efceff;text-decoration:none}
+.hero{position:relative;overflow:hidden;padding:64px 5.5% 56px;border:1px solid #8ce744aa;border-radius:22px;background:linear-gradient(125deg,#140b26ed,#071117e8 64%,#0b2520);box-shadow:0 0 45px #814eff24,inset 0 0 70px #a7ff3b13}
+.hero:before{content:"";position:absolute;width:340px;height:340px;border:2px solid #9aff3d3e;border-radius:50%;right:-65px;top:-112px;box-shadow:0 0 0 30px #9aff3d09,0 0 0 65px #ab65ff0e}
+.signal{font:800 12px ui-monospace,monospace;letter-spacing:.2em;color:var(--blue)}
+h1{font-size:clamp(4rem,11vw,8.8rem);line-height:.93;letter-spacing:-.075em;margin:24px 0 7px;color:var(--lime);text-shadow:3px 3px 0 #66329c,0 0 36px #96fa3f63}
+.subtitle{font-size:clamp(1.5rem,4.7vw,3.4rem);font-weight:1000;letter-spacing:.085em;color:var(--pink);text-shadow:0 0 28px #b52cff8d}
+.hero p{position:relative;max-width:730px;color:#ccdbec;font-size:1.08rem;margin:26px 0}
+.hero .skull{position:absolute;right:5%;top:9%;font-size:clamp(6rem,17vw,15rem);line-height:1;filter:drop-shadow(0 0 26px #78ff46);opacity:.20;transform:rotate(-11deg);pointer-events:none}
+.buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.button,button{cursor:pointer;border-radius:8px;padding:11px 17px;font:800 13px ui-monospace,monospace;letter-spacing:.02em;border:1px solid var(--lime);background:#203912;color:#dcffb5;text-decoration:none}
+.button.alt{border-color:var(--purple);background:#25163c;color:#efd9ff}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0 38px}
+.stat{padding:18px;background:#0e1820;border:1px solid #315d5e;border-radius:11px}
+.stat strong{display:block;font:900 24px ui-monospace,monospace;color:var(--lime)}
+.stat small{color:var(--muted)}
+.kicker{color:var(--blue);font:800 12px ui-monospace,monospace;letter-spacing:.18em}
+h2{font-size:clamp(1.6rem,3vw,2.4rem);margin:12px 0 10px}
+section{margin-top:45px}
+.explain{color:var(--muted);max-width:810px;margin-bottom:20px}
+.layout{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(320px,.88fr);gap:18px;align-items:start}
+.deck{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.switch{min-width:0;text-align:left;min-height:100px;background:linear-gradient(135deg,#171029,#0b1b20);border:1px solid #53406c;padding:14px;border-radius:11px;color:var(--ink);transition:border-color .12s,transform .12s}
+.switch:hover{transform:translateY(-2px);border-color:var(--blue)}
+.switch[aria-pressed="true"]{border-color:var(--lime);background:linear-gradient(135deg,#263411,#0b2b28);box-shadow:inset 0 0 15px #8eff4018,0 0 18px #8eff4022}
+.switch .num{display:block;color:var(--lime);font:900 13px ui-monospace,monospace}
+.switch .name{display:block;font-weight:800;font-size:.95rem;margin:6px 0 3px}
+.switch .desc{display:block;color:var(--muted);font:12px/1.4 system-ui,sans-serif}
+.viewport{position:sticky;top:16px;border:1px solid #8dff54;border-radius:13px;overflow:hidden;box-shadow:0 0 32px #60e73f21;background:#040c0b}
+.bar{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#13241c;border-bottom:1px solid #38765c;font:800 12px ui-monospace,monospace;color:var(--lime)}
+.lights{letter-spacing:.23em;color:#ff568e}
+.tbody{padding:22px}
+.tbody .code{font:13px/1.7 ui-monospace,monospace;color:#b8ffc7;white-space:pre-wrap;word-break:break-word;min-height:175px;margin:20px 0}
+.tbody h3{font-size:1.3rem;color:var(--blue);margin:10px 0}
+.tbody .topic{color:#d5c4ff;font-size:.95rem;min-height:48px}
+.tbody .meta{padding:12px;border:1px solid #31514b;border-radius:8px;color:#9cbbba;font:12px/1.5 ui-monospace,monospace}
+.tag{display:inline-block;color:#ffe2f0;border:1px solid #a64781;border-radius:99px;padding:4px 10px;font:700 11px ui-monospace,monospace;margin-top:7px}
+input{width:100%;min-height:44px;border:1px solid #477e6b;border-radius:7px;background:#06110f;color:#eaffeb;padding:10px 12px;font:14px ui-monospace,monospace}
+.controls{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.controls button{flex:1;min-width:100px}
+.output{margin:14px 0 0;background:#020807;border:1px solid #2d6652;border-radius:8px;padding:12px;min-height:87px;color:#b9ffd0;font:13px/1.5 ui-monospace,monospace;white-space:pre-wrap;word-break:break-word}
+.note{border-left:3px solid var(--pink);padding:15px 18px;background:#271321;border-radius:6px;color:#e5ccda}
+.features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.feature{background:#131625;border:1px solid #433960;border-radius:12px;padding:21px}
+.feature strong{display:block;color:var(--lime);font-size:1.1rem;margin-bottom:8px}
+.feature p{color:var(--muted);margin:0;font-size:.95rem}
+.install{background:linear-gradient(115deg,#191029,#0b2424);border:1px solid #6b62a0;border-radius:13px;padding:22px}
+.install pre{overflow-x:auto;background:#050b11;border:1px solid #315657;color:#aeffc8;border-radius:8px;padding:16px;font:14px/1.6 ui-monospace,monospace}
+.install .buttons{margin-top:12px}
+footer{margin-top:55px;padding-top:18px;border-top:1px solid #394454;font:12px/1.7 ui-monospace,monospace;color:var(--muted)}
+@media(max-width:880px){.layout{grid-template-columns:1fr}.viewport{position:static}.features{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.hero{padding:40px 25px}.stats{grid-template-columns:repeat(2,1fr)}.deck{gap:7px}.switch{padding:10px;min-height:104px}.features{grid-template-columns:1fr}.top{font-size:10px}.stat{padding:13px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="shell">
+<nav class="top"><span>☣ GLITCHBYTE LAB / REAPER INTERFACE</span><a href="https://github.com/Hellfire13666/DEADBYTE-DIGITAL-AFTERLIFE">GITHUB REPOSITORY ↗</a></nav>
+<header class="hero">
+<div class="signal">● DIGITAL AFTERLIFE ONLINE // REAPER DECK v3.19</div>
+<div class="skull" aria-hidden="true">☠</div>
+<h1>DEADBYTE</h1>
+<div class="subtitle">DIGITAL AFTERLIFE</div>
+<p><strong>DIG UP THE PAST. RESURRECT THE RECORD.</strong><br>Public historical research, geo-storm intelligence, vintage newspapers, archived websites and private evidence organization. A terminal with teeth.</p>
+<div class="buttons"><a class="button" href="#deck">☣ ENTER THE REAPER DECK</a><a class="button alt" href="#install">⌘ GET THE REAL TOOL</a></div>
 </header>
-<h2>16-Switch Reaper Deck</h2><p class="minor">Feature overview from the verified local build. Future bays are identified honestly.</p>
-<section class="grid">
-<div class="panel"><b>01</b><h3>Internet Archive</h3><p>Books, media, documents and archived records.</p></div>
-<div class="panel"><b>02</b><h3>Open Library</h3><p>Book and author discovery.</p></div>
-<div class="panel"><b>03</b><h3>Library of Congress</h3><p>Historical collections and catalog results.</p></div>
-<div class="panel"><b>04</b><h3>Wikisource</h3><p>Digitized source texts.</p></div>
-<div class="panel"><b>05</b><h3>Project Gutenberg</h3><p>Public-domain ebook discovery.</p></div>
-<div class="panel"><b>06</b><h3>Historic Newspapers</h3><p>LOC and Internet Archive fallback research.</p></div>
-<div class="panel"><b>07</b><h3>Wayback Machine</h3><p>Historic URL captures.</p></div>
-<div class="panel"><b>08</b><h3>Common Crawl</h3><p>Public crawl index discovery.</p></div>
-<div class="panel"><b>09</b><h3>Archive-It</h3><p>Institutional web archives and archived pages.</p></div>
-<div class="panel"><b>10</b><h3>Wikimedia Commons</h3><p>Keyless heritage images and source metadata.</p></div>
-<div class="panel"><b>11</b><h3>Multi-source research</h3><p>Cross-provider keyword searches.</p></div>
-<div class="panel"><b>12</b><h3>DEAD VAULT</h3><p>Private local session index and evidence retrieval.</p></div>
-<div class="panel"><b>13</b><h3>Field Notes</h3><p>Source documentation and provider caveats.</p></div>
-<div class="panel"><b>14</b><h3>DEAD ARCHIVES</h3><p>Sentence-driven research with historical NOAA storm evidence.</p></div>
-<div class="panel"><b>15</b><h3>Shadow Slot</h3><p>Reserved for future expansion.</p></div>
-<div class="panel"><b>16</b><h3>Reserved Bay</h3><p>Reserved for future expansion.</p></div>
+<div class="stats">
+<div class="stat"><strong>16</strong><small>Reaper positions</small></div>
+<div class="stat"><strong>NOAA</strong><small>Historical storm records</small></div>
+<div class="stat"><strong>KEYLESS</strong><small>Commons heritage search</small></div>
+<div class="stat"><strong>LOCAL</strong><small>DEAD VAULT storage</small></div>
+</div>
+<section id="deck">
+<div class="kicker">01 // SWITCHBOARD</div><h2>THE REAPER DECK</h2>
+<p class="explain">Tap any switch. The terminal panel reveals what that module actually does. This is an interactive project showcase, not a remote connection to the research engines.</p>
+<div class="layout">
+<div class="deck" id="switches" aria-label="16 Reaper switches">
+<button class="switch" type="button" data-id="1" aria-pressed="true"><span class="num">01 // ARCHIVE</span><span class="name">Internet Archive</span><span class="desc">Historic books, media and documents</span></button>
+<button class="switch" type="button" data-id="2" aria-pressed="false"><span class="num">02 // BOOKS</span><span class="name">Open Library</span><span class="desc">Authors, titles and editions</span></button>
+<button class="switch" type="button" data-id="3" aria-pressed="false"><span class="num">03 // COLLECTION</span><span class="name">Library of Congress</span><span class="desc">Public cultural collections</span></button>
+<button class="switch" type="button" data-id="4" aria-pressed="false"><span class="num">04 // TEXTS</span><span class="name">Wikisource</span><span class="desc">Digitized historic source texts</span></button>
+<button class="switch" type="button" data-id="5" aria-pressed="false"><span class="num">05 // BOOKS</span><span class="name">Project Gutenberg</span><span class="desc">Public-domain books</span></button>
+<button class="switch" type="button" data-id="6" aria-pressed="false"><span class="num">06 // PRESS</span><span class="name">Historical Newspapers</span><span class="desc">LOC and archive fallbacks</span></button>
+<button class="switch" type="button" data-id="7" aria-pressed="false"><span class="num">07 // CAPTURE</span><span class="name">Wayback Machine</span><span class="desc">Historical webpage captures</span></button>
+<button class="switch" type="button" data-id="8" aria-pressed="false"><span class="num">08 // CRAWL</span><span class="name">Common Crawl</span><span class="desc">Indexed public web captures</span></button>
+<button class="switch" type="button" data-id="9" aria-pressed="false"><span class="num">09 // CURATED</span><span class="name">Archive-It</span><span class="desc">Institutional web archives</span></button>
+<button class="switch" type="button" data-id="10" aria-pressed="false"><span class="num">10 // HERITAGE</span><span class="name">Wikimedia Commons</span><span class="desc">Historical images and metadata</span></button>
+<button class="switch" type="button" data-id="11" aria-pressed="false"><span class="num">11 // FUSION</span><span class="name">Multi-source Research</span><span class="desc">Cross-provider keyword discovery</span></button>
+<button class="switch" type="button" data-id="12" aria-pressed="false"><span class="num">12 // EVIDENCE</span><span class="name">DEAD VAULT</span><span class="desc">Private local session index</span></button>
+<button class="switch" type="button" data-id="13" aria-pressed="false"><span class="num">13 // NOTES</span><span class="name">Provider Field Notes</span><span class="desc">Coverage and research cautions</span></button>
+<button class="switch" type="button" data-id="14" aria-pressed="false"><span class="num">14 // STORMS</span><span class="name">DEAD ARCHIVES</span><span class="desc">Sentence search and NOAA evidence</span></button>
+<button class="switch" type="button" data-id="15" aria-pressed="false"><span class="num">15 // FUTURE</span><span class="name">Shadow Slot</span><span class="desc">Reserved; not yet active</span></button>
+<button class="switch" type="button" data-id="16" aria-pressed="false"><span class="num">16 // FUTURE</span><span class="name">Reserved Bay</span><span class="desc">Reserved; not yet active</span></button>
+</div>
+<aside class="viewport" aria-live="polite">
+<div class="bar"><span class="lights">● ● ●</span> DEADBYTE // SELECTED SWITCH</div>
+<div class="tbody">
+<div class="kicker" id="snum">SWITCH 01</div>
+<h3 id="stitle">Internet Archive</h3>
+<p class="topic" id="stext">Discover historical books, documents and archival media from public indexes.</p>
+<div class="tag" id="sstatus">PUBLIC RESEARCH</div>
+<div class="code" id="scommand">DEADBYTE &gt; 01<br>PUBLIC RESEARCH KEYWORD &gt; 1906 earthquake<br>PROVIDER // Internet Archive</div>
+<div class="meta" id="smeta">Result records are retrieved by the installed Linux application, not this webpage.</div>
+</div>
+</aside>
+</div>
 </section>
-<h2>Terminal transmission</h2>
-<div class="terminal"><div class="bar">● DEADBYTE // REAPER DECK // PREVIEW ONLY</div><pre><span class="status">SYSTEM:</span> LOCAL RESEARCH TERMINAL
-DEADBYTE &gt; 10
-WIKIMEDIA COMMONS // PUBLIC RESEARCH KEYWORD &gt; 1906 San Francisco earthquake photographs
-CONNECTING // Wikimedia Commons
-RESEARCH: Historical image titles, source pages, licenses and creators
-DEAD VAULT: Private local JSON session storage
-
-<span class="status">NOTE:</span> Illustrative workflow. This page does not execute searches.</pre></div>
-<h2>Install and preserve</h2>
-<p>DEADBYTE runs locally on Linux with Python 3. Start from the repository root with <code>sh install.sh</code>, then launch using <code>deadbyte</code>. The installer refuses to overwrite an existing installation. Private research sessions and local configuration are not bundled with this repository.</p>
-<div class="note"><strong>Research integrity:</strong> archive capture dates and image upload dates are not always historical event dates. Provider limitations and errors must be shown rather than disguised as missing evidence. This preview is static and has no access to your local research vault.</div>
-<footer>☠ DEADBYTE // DIGITAL AFTERLIFE • GLITCHBYTE LAB • HELLFIRE13666<br>Source license: MIT for original code • Third-party media retains its own rights • No vault sessions included</footer>
-</main></body></html>
+<section id="terminal">
+<div class="kicker">02 // REAPER CONSOLE</div><h2>TRY THE INTERFACE</h2>
+<p class="explain">Type a research question for an illustrative terminal response. This offline preview uses no network calls and returns no fabricated source records. For real results, install DEADBYTE.</p>
+<div class="terminal-preview">
+<label for="query" class="kicker">PUBLIC RESEARCH KEYWORD / TOPIC</label>
+<input id="query" maxlength="180" value="1906 San Francisco earthquake photographs" autocomplete="off">
+<div class="controls"><button type="button" id="demo">RUN PREVIEW</button><button type="button" id="copy">COPY QUERY</button></div>
+<div class="output" id="output" aria-live="polite">DEADBYTE // SHOWCASE READY
+SELECT A SWITCH AND RUN THE PREVIEW.
+LIVE PROVIDERS // NOT CONNECTED IN THIS PAGE</div>
+</div>
+</section>
+<section>
+<div class="kicker">03 // WHAT LIVES INSIDE</div><h2>BUILT FOR RESEARCH, NOT GUESSWORK</h2>
+<div class="features">
+<div class="feature"><strong>🌪 NOAA STORM INTELLIGENCE</strong><p>Historical storm-event data with monthly and event-type views, state filters, chronology and individual evidence cards. Database event rows are not automatically unique storms.</p></div>
+<div class="feature"><strong>📜 ARCHIVE PROVENANCE</strong><p>Archive-It and Commons provide record links, timestamps and source fields. Historical event dates stay separate from upload and capture dates.</p></div>
+<div class="feature"><strong>🔐 DEAD VAULT</strong><p>Research-session files are stored locally. Personal evidence, vault contents and machine-specific settings are not published in the repository.</p></div>
+</div>
+</section>
+<section id="install">
+<div class="kicker">04 // LOCAL INSTALL</div><h2>THE REAL REAPER LIVES IN YOUR TERMINAL</h2>
+<div class="install">
+<p>Clone the source, install it without overwriting an existing DEADBYTE, and start the one-word launcher.</p>
+<pre id="installCode">git clone https://github.com/Hellfire13666/DEADBYTE-DIGITAL-AFTERLIFE.git
+cd DEADBYTE-DIGITAL-AFTERLIFE
+sh install.sh
+deadbyte</pre>
+<div class="buttons"><button type="button" id="copyInstall">COPY INSTALL COMMANDS</button><a class="button alt" href="https://github.com/Hellfire13666/DEADBYTE-DIGITAL-AFTERLIFE/blob/main/INSTALL.md">FULL INSTALL GUIDE ↗</a><a class="button alt" href="https://github.com/Hellfire13666/DEADBYTE-DIGITAL-AFTERLIFE/tree/main/recipes">HEXCODEX RECIPES ↗</a></div>
+<p style="color:#c9adc4;font-size:.87rem">Repository is currently private. GitHub access is required to clone. Commands are intended for new Linux installations, not upgrades.</p>
+</div>
+</section>
+<div class="note"><strong>PROJECT SHOWCASE ONLY.</strong> Clicking the buttons on this page does not access the user's research vault, execute terminal code, or query providers. To run live searches, use the installed DEADBYTE application. Third-party content retains its own rights.</div>
+<footer>☠ DEADBYTE // DIGITAL AFTERLIFE · GLITCHBYTE LAB · HELLFIRE13666<br>16-position Reaper Deck · Historical archives · Geo-storm intelligence · Local evidence preservation · MIT for original software code</footer>
+</main>
+<script>
+(function(){
+"use strict";
+var titles=[
+["Internet Archive","Search books, documents and archival media indexed by Internet Archive.","PUBLIC RESEARCH","01","1906 earthquake"],
+["Open Library","Explore authors, book titles and edition metadata.","PUBLIC BOOK INDEX","02","historical books"],
+["Library of Congress","Discover public historical collections; provider requests may time out.","PUBLIC COLLECTIONS","03","1906 San Francisco earthquake"],
+["Wikisource","Find digitized primary and historical source texts.","PUBLIC TEXTS","04","earthquake"],
+["Project Gutenberg","Search digitized public-domain books through Gutendex.","KEYLESS EBOOKS","05","history"],
+["Historical Newspapers","Find historic newspaper metadata using LOC and Internet Archive fallback.","PUBLIC NEWSPAPERS","06","San Francisco earthquake"],
+["Wayback Machine","Look up captures of public website addresses.","PUBLIC CAPTURES","07","example.com"],
+["Common Crawl","Find indexed records in published public crawl datasets.","PUBLIC INDEX","08","example.com"],
+["Archive-It","Search curated institutional web archive collections.","PUBLIC OPENSEARCH","09","national parks"],
+["Wikimedia Commons","Search heritage image files with creator, license and source metadata when available.","KEYLESS HERITAGE","10","1906 San Francisco earthquake photographs"],
+["Multi-source Research","Run keyword research across the six primary archive engines.","MULTI-SOURCE","11","historic earthquakes"],
+["DEAD VAULT","Review research sessions saved privately on the local computer.","LOCAL STORAGE","12",""],
+["Provider Field Notes","Read accuracy notes, source behavior and provider limitations.","HELP GUIDE","13",""],
+["DEAD ARCHIVES","Research historical subjects and NOAA storm-event records with filters and evidence details.","NOAA + REFINERY","14","1980 storms of america"],
+["Shadow Slot","Reserved for future development. No live provider behind this switch.","NOT ACTIVE","15",""],
+["Reserved Bay","Reserved for future development. No live provider behind this switch.","NOT ACTIVE","16",""]
+];
+var active=0;
+function choose(n){
+active=n;
+var x=titles[n];
+document.getElementById("snum").textContent="SWITCH "+x[3];
+document.getElementById("stitle").textContent=x[0];
+document.getElementById("stext").textContent=x[1];
+document.getElementById("sstatus").textContent=x[2];
+document.getElementById("scommand").textContent="DEADBYTE > "+x[3]+(x[4]?"\nPUBLIC RESEARCH INPUT > "+x[4]:"")+"\nMODE // "+x[2];
+document.getElementById("smeta").textContent=n>=14?"Reserved bay; no active research workflow.":n===11?"Saved sessions stay local to the installed DEADBYTE.":"Showcase only. Actual provider requests run from the installed Linux tool.";
+document.querySelectorAll(".switch").forEach(function(b,i){b.setAttribute("aria-pressed",String(i===n));});
+}
+document.querySelectorAll(".switch").forEach(function(b,i){b.addEventListener("click",function(){choose(i);});});
+function preview(){
+var x=titles[active],q=document.getElementById("query").value.trim();
+document.getElementById("output").textContent="☠ DEADBYTE // DEMO TRANSMISSION\nSWITCH "+x[3]+" // "+x[0]+"\nQUERY // "+(q||"(none)")+"\n\n"+(active>=14?"BAY RESERVED // NO RESEARCH ENGINE ACTIVE":active===11?"VAULT VIEWER // private local session index only":active===12?"FIELD NOTES // provider descriptions and limitations":"DEMO ONLY // No live provider results are generated here.")+"\n\nRUN REAL RESEARCH WITH: deadbyte";
+}
+document.getElementById("demo").addEventListener("click",preview);
+function copy(text,id){
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){document.getElementById(id).textContent="COPIED ✓";}).catch(function(){document.getElementById(id).textContent="SELECT AND COPY";});}
+else{document.getElementById(id).textContent="SELECT AND COPY";}
+}
+document.getElementById("copy").addEventListener("click",function(){copy(document.getElementById("query").value,"copy");});
+document.getElementById("copyInstall").addEventListener("click",function(){copy(document.getElementById("installCode").textContent,"copyInstall");});
+choose(0);
+})();
+</script>
+</body>
+</html>

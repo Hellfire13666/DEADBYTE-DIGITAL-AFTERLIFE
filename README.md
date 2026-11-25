@@ -7,7 +7,7 @@
 > **GLITCHBYTE LAB // THE REAPER DECK IS ONLINE**  
 > An electric-rainbow, terminal-based public research suite with **16 switch positions**, keyless research engines, a local evidence vault, and one-word launching on Linux.
 
-[**☣ COPY ALL 20 RECIPES RIGHT HERE**](#-20-real-hexcodex-recipes--copy-directly-from-github) · [**4-COMMAND INSTALL**](#-install-on-linux) · [**PRIVACY**](PRIVACY.md)
+[**☣ COPY ALL 20 RECIPES RIGHT HERE**](#20-real-hexcodex-recipes--copy-directly-from-github) · [**4-COMMAND INSTALL**](#-install-on-linux) · [**PRIVACY**](PRIVACY.md)
 
 ```text
 ██████╗ ███████╗ █████╗ ██████╗ ██████╗ ██╗   ██╗████████╗███████╗
@@ -69,7 +69,7 @@ deadbyte
 
 Requires Linux, Python 3, Git and the POSIX `install` utility. The installer **refuses to overwrite** an existing DEADBYTE installation or private research vault. The package passed local syntax and disposable-home launch checks, but is not yet certified across every Linux distribution. See [INSTALL.md](INSTALL.md) for troubleshooting.
 
-## ☣ 20 REAL HEXCODEX RECIPES // COPY DIRECTLY FROM GITHUB
+## 20 REAL HEXCODEX RECIPES // COPY DIRECTLY FROM GITHUB
 
 **No HTML viewer required.** GitHub displays a **Copy** button on each command block. Copy a recipe into a local Linux terminal after installing DEADBYTE. Recipes 01–14 launch the interactive menu; **select the numbered switch and enter the suggested query**. These are not automated background scans. Recipes 15–20 run local checks and vault utilities. Logging recipes write `DEADBYTE-RECIPE-XX.txt` in your **current terminal directory**; choose a private working directory when recording research.
 

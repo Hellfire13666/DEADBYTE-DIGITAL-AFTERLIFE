@@ -85,7 +85,7 @@ The [HEXCODEX companion](recipes/DEADBYTE-HEXCODEX-GUEST-20-RECIPES.html) contai
 - **Release status:** Source snapshot and installer available in this private repository; no public release certified yet.
 - **Viewer:** [Standalone showcase HTML](showcase/index.html) is a visual preview, **not** a live web client. GitHub's code viewer shows its source; a hosted preview would require separate deployment.
 
-Review [PRIVACY.md](PRIVACY.md) and [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) before any public distribution.
+Review [PRIVACY.md](PRIVACY.md), third-party artwork rights, and installation dependencies before any public distribution.
 
 ---
 
